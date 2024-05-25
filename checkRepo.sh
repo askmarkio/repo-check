@@ -21,12 +21,11 @@ check_remote() {
     branch=$(git rev-parse --abbrev-ref HEAD)
     ahead=$(git rev-list --count origin/$branch..$branch)
     behind=$(git rev-list --count $branch..origin/$branch)
+    echo "Results for '$0'"
     echo "$ahead commits ahead, $behind commits behind"
   else
     echo ""
-    echo "This is not a Git repository."  
-    echo ""
-    echo "Use '-R' to check the folders within this directory."
+    echo "'$0' is not a Git repository."  
     echo ""
   fi
 }
@@ -46,14 +45,12 @@ process() {
   if [ -d "$1/.git" ]; then
     pushd "$PWD" > /dev/null
     cd "$1"
-    echo -n "$1 "
+    echo "$1 "
     check_remote
     popd > /dev/null
   else
     echo ""
-    echo "This is not a Git repository."  
-    echo ""
-    echo "Use '-R' to check the folders within this directory."
+    echo "'$1' is not a Git repository."  
     echo ""
   fi
 }
